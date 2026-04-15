@@ -1,0 +1,195 @@
+/* ========== CSS VARIABLES ========== */
+:root[data-theme="light"],
+.app.light {
+  --bg: #ece8f4;
+  --bg-card: #ece8f4;
+  --shadow-light: #ffffff;
+  --shadow-dark: #c4bedc;
+  --accent: #8b5cf6;
+  --accent-soft: #a78bfa;
+  --accent-pale: #ddd6fe;
+  --text-primary: #2d2640;
+  --text-secondary: #6b5f8a;
+  --text-muted: #9d91b8;
+  --border: rgba(139, 92, 246, 0.15);
+  --neu-raised: 8px 8px 20px var(--shadow-dark), -8px -8px 20px var(--shadow-light);
+  --neu-pressed: inset 4px 4px 10px var(--shadow-dark), inset -4px -4px 10px var(--shadow-light);
+  --neu-flat: 4px 4px 12px var(--shadow-dark), -4px -4px 12px var(--shadow-light);
+  --neu-btn: 6px 6px 16px var(--shadow-dark), -6px -6px 16px var(--shadow-light);
+  --gradient: linear-gradient(135deg, #c4b5fd 0%, #a78bfa 50%, #8b5cf6 100%);
+  --gradient-soft: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+  --glow: 0 0 30px rgba(139, 92, 246, 0.25);
+}
+
+:root[data-theme="dark"],
+.app.dark {
+  --bg: #1a1726;
+  --bg-card: #1e1b2e;
+  --shadow-light: #27233a;
+  --shadow-dark: #0f0d18;
+  --accent: #a78bfa;
+  --accent-soft: #c4b5fd;
+  --accent-pale: #2d2352;
+  --text-primary: #f0ecff;
+  --text-secondary: #c4b5fd;
+  --text-muted: #7c6fa0;
+  --border: rgba(167, 139, 250, 0.2);
+  --neu-raised: 8px 8px 20px var(--shadow-dark), -8px -8px 20px var(--shadow-light);
+  --neu-pressed: inset 4px 4px 10px var(--shadow-dark), inset -4px -4px 10px var(--shadow-light);
+  --neu-flat: 4px 4px 12px var(--shadow-dark), -4px -4px 12px var(--shadow-light);
+  --neu-btn: 6px 6px 16px var(--shadow-dark), -6px -6px 16px var(--shadow-light);
+  --gradient: linear-gradient(135deg, #7c3aed 0%, #a78bfa 50%, #c4b5fd 100%);
+  --gradient-soft: linear-gradient(135deg, #2d2352 0%, #1a1726 100%);
+  --glow: 0 0 40px rgba(167, 139, 250, 0.3);
+}
+
+/* ========== GLOBAL APP ========== */
+.app {
+  background-color: var(--bg);
+  color: var(--text-primary);
+  min-height: 100vh;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* ========== SECTION COMMONS ========== */
+.section {
+  padding: 100px 0;
+  position: relative;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  position: relative;
+  display: inline-block;
+}
+
+.section-title span {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-subtitle {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.title-underline {
+  width: 60px;
+  height: 3px;
+  background: var(--gradient);
+  border-radius: 2px;
+  margin-top: 0.75rem;
+  margin-bottom: 3rem;
+}
+
+/* ========== NEU CARD ========== */
+.neu-card {
+  background: var(--bg-card);
+  border-radius: 20px;
+  box-shadow: var(--neu-raised);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.neu-card:hover {
+  box-shadow: var(--neu-raised), var(--glow);
+  transform: translateY(-3px);
+}
+
+/* ========== NEU BUTTON ========== */
+.neu-btn {
+  background: var(--bg);
+  border: none;
+  border-radius: 50px;
+  box-shadow: var(--neu-btn);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  color: var(--text-primary);
+}
+
+.neu-btn:hover {
+  box-shadow: var(--neu-raised);
+}
+
+.neu-btn:active {
+  box-shadow: var(--neu-pressed);
+}
+
+.neu-btn-accent {
+  background: var(--gradient);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  box-shadow: var(--glow);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.neu-btn-accent:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--glow), 0 8px 25px rgba(139, 92, 246, 0.4);
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: var(--neu-raised); }
+  50%       { box-shadow: var(--neu-raised), var(--glow); }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-fadeUp {
+  animation: fadeUp 0.7s ease forwards;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .section { padding: 70px 0; }
+  .container { padding: 0 1.25rem; }
+}
