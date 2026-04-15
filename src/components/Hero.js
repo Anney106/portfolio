@@ -155,7 +155,7 @@ export default function Hero() {
             <span className="badge-icon">🎬</span>
             <div>
               <div className="badge-title">YouTube Editor</div>
-              <div className="badge-sub">4 Channels</div>
+              <div className="badge-sub">5 Channels</div>
             </div>
           </div>
 

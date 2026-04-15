@@ -8,7 +8,7 @@ const experiences = [
     type: 'Freelance',
     period: '2023 – Present',
     tags: ['YouTube', 'Remote'],
-    channels: ['Directioner Gaming', 'Frustrated Pallav', 'Harshit Playz', 'VL Astrology'],
+    channels: ['Directioner Gaming', 'Frustrated Pallav', 'Harshit Playz', 'VL Astrology', "SDB_DarkNinja"],
     bullets: [
       'Thumbnail design for viral-ready YouTube videos',
       'Long-form and Shorts/Reels video editing',
