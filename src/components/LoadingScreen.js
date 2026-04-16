@@ -201,7 +201,7 @@ export default function LoadingScreen({ onComplete }) {
           <span className="loader-name-last">Chakraborty</span>
         </div>
 
-        <p className="loader-tagline">Visual Storyteller &amp; VFX Artist</p>
+        <p className="loader-tagline">Visual Storyteller &amp; Graphic Designer &amp; Video Editor</p>
 
         {/* Progress bar */}
         <div className="loader-bar-wrap">

@@ -3,6 +3,7 @@ import './Hero.css';
 import ParticleCanvas from './ParticleCanvas';
 import FloatingIcons  from './FloatingIcons';
 import MagneticButton from './MagneticButton';
+import profilePhoto from '../assets/profile.png';
 
 /**
  * SplitText — renders each character in its own span so the
@@ -134,24 +135,45 @@ export default function Hero() {
 
         <div className="hero-visual">
           <div className="avatar-orbit">
-            <div className="orbit-ring ring-1 animate-float">
-              <div className="orbit-dot dot-ps" title="Photoshop">Ps</div>
-              <div className="orbit-dot dot-ai" title="Illustrator">Ai</div>
-              <div className="orbit-dot dot-pr" title="Premiere Pro">Pr</div>
-            </div>
-            <div className="orbit-ring ring-2">
-              <div className="orbit-dot dot-ae" title="After Effects">Ae</div>
-              <div className="orbit-dot dot-maya" title="Maya">Ma</div>
-            </div>
-            <div className="avatar-frame neu-card">
+
+            {/* Decorative rings — purely visual, no children */}
+            <div className="orbit-ring ring-1" />
+            <div className="orbit-ring ring-2" />
+
+            {/* Avatar — centered */}
+            <div className="avatar-frame">
               <div className="avatar-inner">
-                <div className="avatar-initials">TC</div>
-                <div className="avatar-glow" />
+                <div className="avatar-initials">
+                  <img src={profilePhoto} alt="Trishikha Chakraborty" />
+                </div>
               </div>
             </div>
+
+            {/* Orbit dots — direct children of avatar-orbit, positioned via CSS keyframes */}
+            <div className="orbit-dot dot-ps" title="Photoshop">
+              <svg viewBox="0 0 24 24"><rect width="24" height="24" rx="5" fill="#31A8FF"/><text x="12" y="16" textAnchor="middle" fill="white" fontSize="9" fontWeight="bold" fontFamily="monospace">Ps</text></svg>
+              <span className="dot-label">Photoshop</span>
+            </div>
+            <div className="orbit-dot dot-ai" title="Illustrator">
+              <svg viewBox="0 0 24 24"><rect width="24" height="24" rx="5" fill="#FF9A00"/><text x="12" y="16" textAnchor="middle" fill="white" fontSize="9" fontWeight="bold" fontFamily="monospace">Ai</text></svg>
+              <span className="dot-label">Illustrator</span>
+            </div>
+            <div className="orbit-dot dot-pr" title="Premiere Pro">
+              <svg viewBox="0 0 24 24"><rect width="24" height="24" rx="5" fill="#9999FF"/><text x="12" y="16" textAnchor="middle" fill="white" fontSize="9" fontWeight="bold" fontFamily="monospace">Pr</text></svg>
+              <span className="dot-label">Premiere</span>
+            </div>
+            <div className="orbit-dot dot-ae" title="After Effects">
+              <svg viewBox="0 0 24 24"><rect width="24" height="24" rx="5" fill="#1a0050"/><text x="12" y="16" textAnchor="middle" fill="#9999FF" fontSize="9" fontWeight="bold" fontFamily="monospace">Ae</text></svg>
+              <span className="dot-label">After FX</span>
+            </div>
+            <div className="orbit-dot dot-maya" title="Maya 3D">
+              <svg viewBox="0 0 24 24"><rect width="24" height="24" rx="5" fill="#00A3E0"/><text x="12" y="16" textAnchor="middle" fill="white" fontSize="9" fontWeight="bold" fontFamily="monospace">Ma</text></svg>
+              <span className="dot-label">Maya 3D</span>
+            </div>
+
           </div>
 
-          <div className="hero-badge neu-card">
+          <div className="hero-badge">
             <span className="badge-icon">🎬</span>
             <div>
               <div className="badge-title">YouTube Editor</div>
@@ -159,7 +181,7 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="hero-badge hero-badge-2 neu-card">
+          <div className="hero-badge hero-badge-2">
             <span className="badge-icon">🎨</span>
             <div>
               <div className="badge-title">Creative Designer</div>

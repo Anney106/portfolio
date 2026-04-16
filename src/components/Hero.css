@@ -215,130 +215,320 @@
   animation: fadeIn 1s 0.3s ease both;
 }
 
+/* ══════════════════════════════════════
+   ORBIT + NEUMORPHIC AVATAR
+══════════════════════════════════════ */
+
+/*
+  APPROACH: Rings are purely decorative (no children, just CSS circles).
+  Dots are direct children of .avatar-orbit, positioned absolutely at the
+  center, then pushed out with:
+    transform: rotate(VAR_ANGLE) translateY(-RADIUS) rotate(-VAR_ANGLE)
+  JS sets --angle via inline style. A CSS animation then increments that
+  angle continuously using @property (if supported) or we just use
+  keyframe animations with pre-computed start/end angles.
+
+  Simpler & bulletproof: each dot gets its own named @keyframes that
+  starts at its initial angle and goes 360deg further (or -360deg).
+  The dot counter-rotates with a second rotate() so it stays upright.
+*/
+
 .avatar-orbit {
   position: relative;
-  width: 320px;
-  height: 320px;
+  width: 380px;
+  height: 380px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+/* ── Decorative rings (purely visual, no children) ── */
 .orbit-ring {
   position: absolute;
   border-radius: 50%;
-  border: 1.5px dashed var(--border);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .ring-1 {
-  width: 280px;
-  height: 280px;
-  animation: spin-slow 18s linear infinite;
+  width: 320px;
+  height: 320px;
+  border: 1.5px solid rgba(139, 92, 246, 0.25);
+  box-shadow:
+    0 0 20px rgba(139,92,246,0.08),
+    inset 0 0 20px rgba(255,255,255,0.5),
+    0 0 0 6px rgba(255,255,255,0.3);
 }
 
 .ring-2 {
-  width: 200px;
-  height: 200px;
-  animation: spin-slow 12s linear infinite reverse;
+  width: 220px;
+  height: 220px;
+  border: 1.5px solid rgba(167, 139, 250, 0.2);
+  box-shadow:
+    0 0 14px rgba(167,139,250,0.07),
+    inset 0 0 14px rgba(255,255,255,0.4),
+    0 0 0 4px rgba(255,255,255,0.25);
 }
+
+/* ── Orbit dots — absolutely positioned on .avatar-orbit ── */
+/*
+  Each .orbit-dot sits at the center of avatar-orbit (top:50%, left:50%,
+  translate -50% -50% to center it), then we apply a named keyframe that
+  orbits it around a radius. The trick:
+    rotate(θ) translateY(-R) rotate(-θ)
+  keeps the dot upright. We animate θ from start to start±360.
+*/
 
 .orbit-dot {
   position: absolute;
-  width: 38px;
-  height: 38px;
+  top: 50%;
+  left: 50%;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
-  background: var(--bg);
-  box-shadow: var(--neu-flat);
+  background: linear-gradient(145deg, #f5f2ff, #e6e0ff);
+  box-shadow:
+    7px 7px 16px rgba(139,92,246,0.25),
+    -7px -7px 16px rgba(255,255,255,1),
+    0 0 0 1px rgba(196,181,253,0.45),
+    inset 2px 2px 5px rgba(255,255,255,0.9),
+    inset -2px -2px 5px rgba(139,92,246,0.1);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-family: 'Space Mono', monospace;
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: var(--accent);
-  transition: transform 0.3s ease;
+  gap: 2px;
+  z-index: 10;
+  cursor: default;
+  transition: box-shadow 0.3s ease;
+  /* center it before the orbit transform is applied */
+  margin-top: -26px;
+  margin-left: -26px;
 }
 
-.orbit-dot:hover { transform: scale(1.3); }
+.orbit-dot:hover {
+  box-shadow:
+    10px 10px 22px rgba(139,92,246,0.38),
+    -10px -10px 22px rgba(255,255,255,1),
+    0 0 0 2px rgba(139,92,246,0.3),
+    0 0 28px rgba(139,92,246,0.22),
+    inset 2px 2px 6px rgba(255,255,255,0.95),
+    inset -2px -2px 6px rgba(139,92,246,0.15);
+}
 
-/* Position dots on ring-1 */
-.dot-ps { top: -19px; left: 50%; transform: translateX(-50%); }
-.dot-ai { bottom: -19px; right: 30px; }
-.dot-pr { bottom: -19px; left: 30px; }
+.orbit-dot svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+  border-radius: 5px;
+  flex-shrink: 0;
+}
 
-/* Position dots on ring-2 */
-.dot-ae { top: -19px; right: 50px; }
-.dot-maya { bottom: -19px; left: 50px; }
+.orbit-dot .dot-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.42rem;
+  font-weight: 700;
+  color: #7c3aed;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
 
+/* ── Per-dot orbit keyframes ── */
+/* Ring-1 radius = 160px, Ring-2 radius = 110px */
+/* Each dot starts at a different angle so they're evenly spread */
+
+/* Ring-1, dot A: starts at -90deg (top), spins 360 CW */
+.dot-ps { animation: orbit-r1-a 18s linear infinite; }
+@keyframes orbit-r1-a {
+  from { transform: rotate(-90deg)  translateY(-160px) rotate(90deg);  }
+  to   { transform: rotate(270deg) translateY(-160px) rotate(-270deg); }
+}
+
+/* Ring-1, dot B: starts at 30deg */
+.dot-ai { animation: orbit-r1-b 18s linear infinite; }
+@keyframes orbit-r1-b {
+  from { transform: rotate(30deg)  translateY(-160px) rotate(-30deg); }
+  to   { transform: rotate(390deg) translateY(-160px) rotate(-390deg); }
+}
+
+/* Ring-1, dot C: starts at 150deg */
+.dot-pr { animation: orbit-r1-c 18s linear infinite; }
+@keyframes orbit-r1-c {
+  from { transform: rotate(150deg) translateY(-160px) rotate(-150deg); }
+  to   { transform: rotate(510deg) translateY(-160px) rotate(-510deg); }
+}
+
+/* Ring-2, dot A: starts at 0deg (right), spins CCW */
+.dot-ae { animation: orbit-r2-a 12s linear infinite; }
+@keyframes orbit-r2-a {
+  from { transform: rotate(0deg)    translateY(-110px) rotate(0deg);   }
+  to   { transform: rotate(-360deg) translateY(-110px) rotate(360deg); }
+}
+
+/* Ring-2, dot B: starts at 180deg */
+.dot-maya { animation: orbit-r2-b 12s linear infinite; }
+@keyframes orbit-r2-b {
+  from { transform: rotate(180deg)  translateY(-110px) rotate(-180deg); }
+  to   { transform: rotate(-180deg) translateY(-110px) rotate(180deg);  }
+}
+
+/* ── Neumorphic avatar frame ── */
+
+/* Pulsing halo glow — sits behind everything */
+.avatar-orbit::before {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: transparent;
+  z-index: 0;
+  pointer-events: none;
+  box-shadow:
+    0 0 0 6px rgba(196, 181, 253, 0.4),
+    0 0 0 14px rgba(167, 139, 250, 0.18),
+    0 0 50px 12px rgba(139, 92, 246, 0.14);
+  animation: pulse-ring 3s ease-in-out infinite;
+}
+
+@keyframes pulse-ring {
+  0%, 100% {
+    box-shadow: 0 0 0 6px rgba(196,181,253,0.4), 0 0 0 14px rgba(167,139,250,0.18), 0 0 50px 12px rgba(139,92,246,0.14);
+  }
+  50% {
+    box-shadow: 0 0 0 9px rgba(196,181,253,0.6), 0 0 0 20px rgba(167,139,250,0.28), 0 0 65px 18px rgba(139,92,246,0.22);
+  }
+}
+
+/* Outer neumorphic raised disc */
 .avatar-frame {
-  width: 160px;
-  height: 160px;
+  width: 190px;
+  height: 190px;
   border-radius: 50%;
   z-index: 2;
   position: relative;
-  overflow: hidden;
-  padding: 6px;
+  padding: 8px;
+  background: #ede9fe;
+  box-shadow:
+    14px 14px 30px rgba(139, 92, 246, 0.28),
+    -14px -14px 30px rgba(255, 255, 255, 0.90),
+    6px  6px  12px rgba(139, 92, 246, 0.15),
+    -6px -6px  12px rgba(255, 255, 255, 0.70);
+  transition: box-shadow 0.45s ease, transform 0.45s ease;
 }
 
+.avatar-frame:hover {
+  transform: scale(1.04);
+  box-shadow:
+    18px 18px 38px rgba(139, 92, 246, 0.38),
+    -18px -18px 38px rgba(255, 255, 255, 0.95),
+    0 0 50px rgba(139, 92, 246, 0.25),
+    inset 0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+/* Middle inset groove */
 .avatar-inner {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: var(--gradient);
+  background: #ede9fe;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
+  box-shadow:
+    inset 5px 5px 12px rgba(139, 92, 246, 0.25),
+    inset -5px -5px 12px rgba(255, 255, 255, 0.85);
+  padding: 6px;
 }
 
+/* Photo container */
 .avatar-initials {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: white;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 1;
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.12);
 }
 
-.avatar-glow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3), transparent 60%);
+.avatar-initials img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 50%;
+  display: block;
+  transition: transform 0.45s ease;
 }
 
-/* Floating badges */
+.avatar-frame:hover .avatar-initials img {
+  transform: scale(1.06);
+}
+
+
+/* Floating badges — neumorphic glass */
 .hero-badge {
   position: absolute;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.85rem 1.25rem;
-  border-radius: 16px;
-  bottom: 40px;
-  left: -20px;
+  gap: 0.9rem;
+  padding: 0.9rem 1.4rem;
+  border-radius: 20px;
+  bottom: 32px;
+  left: -28px;
+  background: linear-gradient(145deg, #f5f2ff, #e8e2ff);
+  box-shadow:
+    10px 10px 22px rgba(139, 92, 246, 0.22),
+    -10px -10px 22px rgba(255, 255, 255, 1),
+    0 0 0 1px rgba(196, 181, 253, 0.4),
+    inset 1px 1px 3px rgba(255,255,255,0.9),
+    inset -1px -1px 3px rgba(139,92,246,0.06);
   animation: float 5s 1s ease-in-out infinite;
+  backdrop-filter: blur(12px);
+  z-index: 5;
 }
 
 .hero-badge-2 {
   bottom: auto;
   left: auto;
-  top: 30px;
-  right: -20px;
+  top: 24px;
+  right: -28px;
   animation-delay: 2.5s;
 }
 
-.badge-icon { font-size: 1.4rem; }
+.badge-icon {
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #ede9fe, #ddd6fe);
+  box-shadow:
+    4px 4px 10px rgba(139,92,246,0.2),
+    -4px -4px 10px rgba(255,255,255,0.95),
+    inset 1px 1px 2px rgba(255,255,255,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
 
 .badge-title {
-  font-size: 0.8rem;
-  font-weight: 600;
+  font-size: 0.82rem;
+  font-weight: 700;
   color: var(--text-primary);
+  letter-spacing: -0.01em;
 }
 
 .badge-sub {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   color: var(--accent);
   font-family: 'Space Mono', monospace;
+  margin-top: 2px;
 }
 
 /* Scroll indicator */
@@ -390,11 +580,36 @@
   .greeting-dot, .hero-greeting { justify-content: center; }
   .hero-name { align-items: center; }
 
-  .avatar-orbit { width: 260px; height: 260px; }
-  .ring-1 { width: 230px; height: 230px; }
-  .ring-2 { width: 160px; height: 160px; }
-  .avatar-frame { width: 130px; height: 130px; }
-  .avatar-initials { font-size: 2rem; }
+  .avatar-orbit { width: 280px; height: 280px; }
+  .ring-1 { width: 240px; height: 240px; }
+  .ring-2 { width: 164px; height: 164px; }
+  .orbit-dot { width: 42px; height: 42px; margin-top: -21px; margin-left: -21px; }
+  .orbit-dot svg { width: 20px; height: 20px; }
+  .dot-label { display: none; }
+
+  /* Rescaled radii: ring-1 → 120px, ring-2 → 82px */
+  @keyframes orbit-r1-a {
+    from { transform: rotate(-90deg)  translateY(-120px) rotate(90deg);  }
+    to   { transform: rotate(270deg)  translateY(-120px) rotate(-270deg); }
+  }
+  @keyframes orbit-r1-b {
+    from { transform: rotate(30deg)   translateY(-120px) rotate(-30deg); }
+    to   { transform: rotate(390deg)  translateY(-120px) rotate(-390deg); }
+  }
+  @keyframes orbit-r1-c {
+    from { transform: rotate(150deg)  translateY(-120px) rotate(-150deg); }
+    to   { transform: rotate(510deg)  translateY(-120px) rotate(-510deg); }
+  }
+  @keyframes orbit-r2-a {
+    from { transform: rotate(0deg)    translateY(-82px) rotate(0deg);   }
+    to   { transform: rotate(-360deg) translateY(-82px) rotate(360deg); }
+  }
+  @keyframes orbit-r2-b {
+    from { transform: rotate(180deg)  translateY(-82px) rotate(-180deg); }
+    to   { transform: rotate(-180deg) translateY(-82px) rotate(180deg);  }
+  }
+
+  .avatar-frame { width: 150px; height: 150px; }
 }
 
 @media (max-width: 480px) {
