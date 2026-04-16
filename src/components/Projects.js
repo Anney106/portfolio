@@ -3,6 +3,7 @@ import './Projects.css';
 import useScrollReveal from './useScrollReveal';
 import TiltCard      from './TiltCard';
 import MagneticButton from './MagneticButton';
+import FireVFX from './FireVFX';
 
 const categories = ['All', 'Graphic Design', 'Video Editing', 'Animation', 'Short Film', 'Handcraft'];
 
@@ -120,6 +121,7 @@ export default function Projects() {
 
   return (
     <section className="projects section aurora-section section-glow-enter" id="projects">
+      <FireVFX />
       <div className="container">
         <div className="reveal-up" ref={headerRef}>
           <p className="section-subtitle">What I've Built</p>

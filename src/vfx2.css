@@ -122,6 +122,17 @@ body::after {
   opacity: 0;
   transform: translateY(28px) rotate(-3deg);
   animation: lr-pop 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  /* Safety: ensure letter is visible even if animation stalls */
+  animation-fill-mode: forwards;
+}
+
+/* Fallback: if animation hasn't run yet show letter after 2s max */
+@media (prefers-reduced-motion: reduce) {
+  .letter-reveal .lr-char {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
 }
 
 .letter-reveal .lr-space {

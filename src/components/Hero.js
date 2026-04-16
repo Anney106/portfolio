@@ -28,7 +28,7 @@ function SplitText({ text, baseDelay = 0, className = '' }) {
   );
 }
 
-const roles = ['Graphic Designer', 'Video Editor', 'VFX Artist', '2D & 3D Creator', 'Filmmaker'];
+const roles = ['Graphic Designer', 'Video Editor', '2D & 3D Creator', 'Filmmaker', 'DIY Enthusiast', 'Home Made Crafts'];
 
 export default function Hero() {
   const roleRef = useRef(null);
@@ -86,7 +86,7 @@ export default function Hero() {
           </p>
 
           <h1 className="hero-name">
-            <SplitText text="Trishikha" baseDelay={0.2} /><br />
+            <SplitText text="Trishikha" baseDelay={0.2} />
             <span className="hero-name-accent">
               <SplitText text="Chakraborty" baseDelay={0.75} />
             </span>
@@ -100,7 +100,7 @@ export default function Hero() {
 
           <p className="hero-bio">
             A passionate visual storyteller crafting stunning graphics, cinematic edits,
-            and immersive VFX. Based in Kolkata, creating magic with pixels and frames.
+            and immersive Video Editor. Based in Kolkata, creating magic with pixels and frames.
           </p>
 
           <div className="hero-actions">

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './Skills.css';
 import useScrollReveal from './useScrollReveal';
+import CrystalVFX from './CrystalVFX';
 
 const softwareSkills = [
   { name: 'Adobe Photoshop CC', level: 90, icon: 'Ps', color: '#31A8FF' },
@@ -73,6 +74,7 @@ export default function Skills() {
 
   return (
     <section className="skills section aurora-section" id="skills">
+      <CrystalVFX />
       <div className="container">
         <p className="section-subtitle">What I Use</p>
         <h2 className="section-title">My <span>Skills</span></h2>

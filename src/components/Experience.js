@@ -1,6 +1,7 @@
 import React from 'react';
 import './Experience.css';
 import useScrollReveal from './useScrollReveal';
+import GalaxyVFX from './GalaxyVFX';
 
 const experiences = [
   {
@@ -68,6 +69,7 @@ export default function Experience() {
 
   return (
     <section className="experience section section-glow-enter" id="experience">
+      <GalaxyVFX />
       <div className="container">
         <p className="section-subtitle">My Journey</p>
         <h2 className="section-title">Experience & <span>Education</span></h2>

@@ -3,14 +3,15 @@ import './App.css';
 import './vfx.css';
 import './vfx2.css';              // ← NEW extended VFX pack
 
-import Navbar     from './components/Navbar';
-import Hero       from './components/Hero';
-import About      from './components/About';
-import Skills     from './components/Skills';
-import Experience from './components/Experience';
-import Projects   from './components/Projects';
-import Contact    from './components/Contact';
-import Footer     from './components/Footer';
+import Navbar        from './components/Navbar';
+import Hero          from './components/Hero';
+import About         from './components/About';
+import Skills        from './components/Skills';
+import Experience    from './components/Experience';
+import Projects      from './components/Projects';
+import Contact       from './components/Contact';
+import Footer        from './components/Footer';
+import LoadingScreen from './components/LoadingScreen';
 
 // Original VFX
 import CursorGlow from './components/CursorGlow';
@@ -23,7 +24,8 @@ import SkillTicker    from './components/SkillTicker';     // scrolling skills m
 export const ThemeContext = React.createContext();
 
 function App() {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme]       = useState('light');
+  const [loaded, setLoaded]     = useState(false);
 
   const toggleTheme = () => {
     setTheme(prev => prev === 'light' ? 'dark' : 'light');
@@ -35,7 +37,10 @@ function App() {
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <div className={`app ${theme}`}>
+      {/* VFX Loading Screen — unmounts itself after onComplete */}
+      {!loaded && <LoadingScreen onComplete={() => setLoaded(true)} />}
+
+      <div className={`app ${theme}`} style={{ visibility: loaded ? 'visible' : 'hidden' }}>
 
         {/* ── Global VFX layers ── */}
         <ScrollProgress />     {/* z 10001 — glowing lavender top bar */}

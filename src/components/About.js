@@ -1,6 +1,7 @@
 import React from 'react';
 import './About.css';
 import useScrollReveal from './useScrollReveal';
+import WaterVFX from './WaterVFX';
 
 const facts = [
   { icon: '🎓', label: 'BBA Student', sub: 'Manipal Online University' },
@@ -15,6 +16,7 @@ export default function About() {
   const visualRef = useScrollReveal();
   return (
     <section className="about section aurora-section section-glow-enter" id="about" ref={sectionRef}>
+      <WaterVFX />
       <div className="container">
         <p className="section-subtitle">Who I Am</p>
         <h2 className="section-title">About <span>Me</span></h2>

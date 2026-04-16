@@ -43,7 +43,7 @@
    ────────────────────────────────────────── */
 .aurora-section {
   position: relative;
-  overflow: hidden;
+  overflow: clip;        /* clips the canvas & pseudo blobs, but does NOT affect layout of grid children */
 }
 
 .aurora-section::before,
@@ -89,7 +89,7 @@
    ────────────────────────────────────────── */
 .shimmer-card {
   position: relative;
-  overflow: hidden;
+  overflow: clip;
 }
 
 .shimmer-card::after {

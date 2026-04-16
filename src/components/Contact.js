@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import './Contact.css';
 import useScrollReveal from './useScrollReveal';
+import ElectricVFX from './ElectricVFX';
 
 const contactInfo = [
   { icon: '📞', label: 'Phone', value: '+91 8240230192', href: 'tel:+918240230192' },
   { icon: '✉️', label: 'Email', value: 'trishikhachakraborty19@gmail.com', href: 'mailto:trishikhachakraborty19@gmail.com' },
   { icon: '📍', label: 'Location', value: 'Thakurpukur, Kolkata 700063', href: null },
-  { icon: '💼', label: 'LinkedIn', value: 'linkedin.com/in/trishikha', href: 'https://linkedin.com' },
+  { icon: '💼', label: 'LinkedIn', value: 'linkedin.com/in/trishikha-chakraborty-54102b262', href: 'https://www.linkedin.com/in/trishikha-chakraborty-54102b262/' },
 ];
 
 export default function Contact() {
@@ -28,6 +29,7 @@ export default function Contact() {
 
   return (
     <section className="contact section aurora-section" id="contact">
+      <ElectricVFX />
       <div className="container">
         <p className="section-subtitle">Say Hello</p>
         <h2 className="section-title">Get In <span>Touch</span></h2>
@@ -72,7 +74,7 @@ export default function Contact() {
               <a href="https://drive.google.com/drive/folders/1TbVjSTg-xBk4SFVsigBSaFvr3wYJGQ43" target="_blank" rel="noreferrer" className="social-btn neu-btn sparkle-btn">
                 📁 Portfolio Drive
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="social-btn neu-btn sparkle-btn">
+              <a href="https://www.linkedin.com/in/trishikha-chakraborty-54102b262/" target="_blank" rel="noreferrer" className="social-btn neu-btn sparkle-btn">
                 💼 LinkedIn
               </a>
             </div>
